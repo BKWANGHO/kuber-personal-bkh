@@ -1,11 +1,9 @@
 package com.turing.api.user;
 
 
-import com.turing.api.enums.Messenger;
-import com.turing.api.proxy.TypeProxy;
-import lombok.NoArgsConstructor;
+import com.turing.api.common.enums.Messenger;
+import com.turing.api.common.proxy.TypeProxy;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;

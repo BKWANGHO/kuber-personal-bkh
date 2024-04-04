@@ -15,10 +15,8 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private long id;
-
     private String boardName;
     private String boardType;
-
 
     @OneToMany(mappedBy = "board")
     private List<Article> articles;
