@@ -30,12 +30,12 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public List findAll() {
+    public List<?> findAll() {
         return null;
     }
 
     @Override
-    public Optional findById(Long id) {
+    public Optional<?> findById(Long id) {
         return Optional.empty();
     }
 
@@ -45,7 +45,7 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public Optional getOne(String id) {
+    public Optional<?> getOne(String id) {
         return Optional.empty();
     }
 

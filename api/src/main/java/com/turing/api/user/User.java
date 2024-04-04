@@ -2,6 +2,7 @@ package com.turing.api.user;
 
 
 import com.turing.api.article.Article;
+import com.turing.api.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @ToString(exclude = {"id"})
-public class User {
+public class User extends BaseEntity {
     @Id
     @Column(name = "user_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)

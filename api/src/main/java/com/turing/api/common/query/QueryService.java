@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public interface QueryService<T> {
-    List<T> findAll() ;
+    List<T> findAll()  ;
     Optional<T> findById(Long id);
     String count();
     Optional<T> getOne(String id) ;
