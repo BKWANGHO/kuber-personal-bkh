@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Data
 @Builder
-@Log4j
+@Log4j2
 public class ArticleDto {
 
     private Long id;

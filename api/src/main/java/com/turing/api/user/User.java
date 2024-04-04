@@ -14,7 +14,6 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Setter
-@ToString(exclude = {"id"})
 public class User extends BaseEntity {
     @Id
     @Column(name = "user_id", nullable = false)
@@ -27,8 +26,6 @@ public class User extends BaseEntity {
     private String phone;
     private Long addressId;
     private String job;
-    private double height;
-    private double weight;
 
     @OneToMany(mappedBy = "writer")
     private List<Article> articles;
@@ -42,8 +39,6 @@ public class User extends BaseEntity {
                 ", phoneNumber=" + phone +
                 ", address='" + addressId + '\'' +
                 ", job='" + job + '\'' +
-                ", height=" + height +
-                ", weight=" + weight +
                 '}' + '\n';
     }
 

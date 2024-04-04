@@ -18,7 +18,7 @@ public class ArticleController {
     public Map<?, ?> findAll() {
         Map<String, Object> map = new HashMap<>();
 
-        List<Article> list = service.findAll();
+        List<ArticleDto> list = service.findAll();
         map.put("result", list);
         System.out.println("리스트 몇개?"+list.size());
         return map;

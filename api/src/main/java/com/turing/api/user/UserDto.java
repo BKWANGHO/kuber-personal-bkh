@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Data
-@Log4j
+@Log4j2
 public class UserDto {
 
     private Long id;
@@ -28,8 +29,6 @@ public class UserDto {
     private String phone;
     private Long addressId;
     private String job;
-    private double height;
-    private double weight;
     @Builder.Default
     private List<Article> articles = new ArrayList<>();
 }

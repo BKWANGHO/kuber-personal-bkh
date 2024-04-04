@@ -15,7 +15,7 @@ public class ArticleServiceImpl implements ArticleService{
 
 
     @Override
-    public String save(Object o) {
+    public String save(Article article) {
         return null;
     }
 
@@ -25,18 +25,21 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public String delete(Object o) {
+    public String delete(Article article) {
         return null;
     }
 
     @Override
-    public List findAll() {
+    public List<ArticleDto> findAll() {
         return null;
     }
 
     @Override
-    public Optional findById(Long id) {
-        return Optional.empty();
+    public Optional<ArticleDto> findById(Long id) {
+        Article ent = repository.findById(id).get();
+        Optional<ArticleDto> dto = entityToDto(ent);
+
+        return Optional.of(dto.orElse(null));
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public Optional getOne(String id){
+    public Optional<ArticleDto> getOne(String id) {
         return Optional.empty();
     }
 
