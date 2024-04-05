@@ -1,7 +1,7 @@
 package com.turing.api.common.component;
 
 
-import com.turing.api.article.ArticleDto;
+import com.turing.api.article.model.ArticleDto;
 import lombok.*;
 
 import org.springframework.data.domain.PageRequest;

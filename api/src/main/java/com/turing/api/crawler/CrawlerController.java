@@ -1,5 +1,6 @@
 package com.turing.api.crawler;
 
+import com.turing.api.crawler.service.CrawlerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

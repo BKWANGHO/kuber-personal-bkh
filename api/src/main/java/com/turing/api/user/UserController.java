@@ -1,58 +1,76 @@
 package com.turing.api.user;
 
+import com.turing.api.board.model.BoardDto;
 import com.turing.api.common.component.MessengerVo;
+import com.turing.api.common.component.PageRequestVo;
+import com.turing.api.user.model.User;
+import com.turing.api.user.model.UserDto;
+import com.turing.api.user.repository.UserRepository;
+import com.turing.api.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
+@ApiResponses({
+        @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+        @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+        @ApiResponse(responseCode = "200", description = "SUCCESS"),
+})
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*",allowedHeaders = "*")
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Slf4j
 public class UserController {
     private final UserService service;
-    private final UserRepository repository;
 
-    @PostMapping(path = "/api/login")
-    public Map<String, ?> login(@RequestBody Map<?, ?> paramap) {
-        Map<String, MessengerVo> response = new HashMap<>();
-        String username = (String)paramap.get("username");
-        User user = repository.findByUsername(username).orElse(null);
-
-        return response;
-    }
-
-    @PostMapping(path = "/api/users")
-    public Map<String, ?> join(@RequestBody Map<String, ?> paramap) {
-        System.out.println("입력받은 아이디 : " + paramap.get("username"));
-        User user = repository.save(User.builder()
-                .username((String)paramap.get("username"))
-                .password((String)paramap.get("password"))
-                .name((String)paramap.get("name"))
-                .job((String)paramap.get("job"))
-                .phone((String)paramap.get("phone"))
-//                .height(TypeProxy.doubleOf.apply((String)paramap.get("height")))
-//                .weight(TypeProxy.doubleOf.apply((String)paramap.get("weight")))
+    @PostMapping("")
+    public ResponseEntity<MessengerVo> save(@RequestBody UserDto userDto) {
+        return ResponseEntity.ok(MessengerVo.builder()
+                .code("200")
+                .message(service.save(userDto).toString())
                 .build());
-        System.out.println("DB에 저장된 User 정보 : " + user);
-        Map<String, MessengerVo> map = new HashMap<>();
-
-        return map;
     }
 
-    @GetMapping("/api/all-users")
-    public Map<?,?>findAll(){
-        Map<String,Object> map = new HashMap<>();
-        List<User> ls = repository.findAll();
-        map.put("result",ls);
-        return map;
+    @DeleteMapping("/{id}")
+    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id) {
+        service.deleteById(id);
+        return ResponseEntity.ok(new MessengerVo());
     }
 
-    public Map<?,?> insertMany(){
-        Map<String,Object> map = new HashMap<>();
-        return map;
+    @GetMapping("")
+    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo) {
+        return ResponseEntity.ok(MessengerVo.builder()
+                .code("200")
+                .message(service.findAll(vo).toString()).build());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MessengerVo> findById(@PathVariable long id) {
+        service.findById(null);
+        return ResponseEntity.ok(new MessengerVo());
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<MessengerVo> count() {
+        service.count();
+        return ResponseEntity.ok(new MessengerVo());
+    }
+
+    @GetMapping("/exist/{id}")
+    public ResponseEntity<MessengerVo> existsById(@PathVariable long id) {
+        service.existsById(id);
+        return ResponseEntity.ok(new MessengerVo());
+    }
 
 
 }
