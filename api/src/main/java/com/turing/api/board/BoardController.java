@@ -1,13 +1,15 @@
 package com.turing.api.board;
 
-import com.turing.api.article.model.ArticleDto;
 import com.turing.api.board.model.BoardDto;
 import com.turing.api.board.service.BoardService;
-import com.turing.api.common.component.MessengerVo;
+import com.turing.api.common.component.Messenger;
 import com.turing.api.common.component.PageRequestVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,34 +19,28 @@ public class BoardController {
 private final BoardService service;
 
     @PostMapping("")
-    public ResponseEntity<MessengerVo> save(BoardDto boardDto){
-        service.save(boardDto);
-        return ResponseEntity.ok(new MessengerVo());
+    public ResponseEntity<Messenger> save(@RequestBody BoardDto boardDto){
+        return ResponseEntity.ok(service.save(boardDto));
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id){
-        service.deleteById(id);
-        return ResponseEntity.ok(new MessengerVo());
+    @DeleteMapping("/delete")
+    public ResponseEntity<Messenger> deleteById(@RequestParam long id){
+        return ResponseEntity.ok(service.deleteById(id));
     }
-    @GetMapping("")
-    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo){
-        service.findAll(vo);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/list")
+    public ResponseEntity<List<BoardDto>> findAll(){
+        return ResponseEntity.ok(service.findAll());
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<MessengerVo> findById(@PathVariable long id){
-        service.findById(null);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<BoardDto>> findById(@RequestParam long id){
+        return ResponseEntity.ok(service.findById(id));
     }
     @GetMapping("/count")
-    public ResponseEntity<MessengerVo> count(){
-        service.count();
-        return ResponseEntity.ok(new MessengerVo());
+    public ResponseEntity<Long> count(){
+        return ResponseEntity.ok(service.count());
     }
     @GetMapping("/exists/{id}")
-    public ResponseEntity<MessengerVo> existsById(@PathVariable long id){
-        service.existsById(id);
-        return ResponseEntity.ok(new MessengerVo());
+    public ResponseEntity<Boolean> existsById(@RequestParam long id){
+        return ResponseEntity.ok(service.existsById(id));
     }
 
 }

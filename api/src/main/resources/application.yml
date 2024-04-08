@@ -10,8 +10,8 @@ spring:
     init:
       platform: mysql
       mode: always
-
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create
     properties:

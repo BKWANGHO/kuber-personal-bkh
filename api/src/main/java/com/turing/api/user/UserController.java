@@ -1,24 +1,17 @@
 package com.turing.api.user;
 
-import com.turing.api.board.model.BoardDto;
-import com.turing.api.common.component.MessengerVo;
-import com.turing.api.common.component.PageRequestVo;
-import com.turing.api.user.model.User;
+import com.turing.api.common.component.Messenger;
 import com.turing.api.user.model.UserDto;
-import com.turing.api.user.repository.UserRepository;
 import com.turing.api.user.service.UserService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @ApiResponses({
@@ -33,44 +26,60 @@ import java.util.*;
 public class UserController {
     private final UserService service;
 
-    @PostMapping("")
-    public ResponseEntity<MessengerVo> save(@RequestBody UserDto userDto) {
-        return ResponseEntity.ok(MessengerVo.builder()
-                .code("200")
-                .message(service.save(userDto).toString())
-                .build());
+    @PostMapping( "/save")
+    public ResponseEntity<Messenger> save(@RequestBody UserDto userDto) {
+        log.info("입력받은 정보 : {}",userDto);
+        return ResponseEntity.ok(service.save(userDto));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<MessengerVo> deleteById(@PathVariable long id) {
-        service.deleteById(id);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping( "/list")
+    public ResponseEntity<List<UserDto>> findAll() {
+        log.info("입력받은 정보 : {}");
+        System.out.println(service.findAll());
+        return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("")
-    public ResponseEntity<MessengerVo> findAll(PageRequestVo vo) {
-        return ResponseEntity.ok(MessengerVo.builder()
-                .code("200")
-                .message(service.findAll(vo).toString()).build());
+    @GetMapping("/detail")
+    public ResponseEntity<Optional<UserDto>> findById(@RequestParam long id) {
+        log.info("입력받은 정보 : {}",id);
+        return ResponseEntity.ok(service.findById(null));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MessengerVo> findById(@PathVariable long id) {
-        service.findById(null);
-        return ResponseEntity.ok(new MessengerVo());
+    @PutMapping( "/modify")
+    public ResponseEntity<Messenger> modify(@RequestBody UserDto userDto){
+        log.info("입력받은 정보 : {}",userDto);
+        return ResponseEntity.ok(service.modify(userDto) );
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Messenger> deleteById(@RequestParam long id) {
+        log.info("입력받은 정보 : {}",id);
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
     @GetMapping("/count")
-    public ResponseEntity<MessengerVo> count() {
-        service.count();
-        return ResponseEntity.ok(new MessengerVo());
+    public ResponseEntity<Long> count() {
+        return ResponseEntity.ok(service.count());
     }
 
-    @GetMapping("/exist/{id}")
-    public ResponseEntity<MessengerVo> existsById(@PathVariable long id) {
-        service.existsById(id);
-        return ResponseEntity.ok(new MessengerVo());
+    @GetMapping("/exist")
+    public ResponseEntity<Boolean> existsById(@RequestParam long id) {
+        return ResponseEntity.ok(service.existsById(id));
     }
+
+    @PostMapping("/search")
+    public ResponseEntity<List<UserDto>> findByName(@RequestBody UserDto userDto) {
+        log.info("입력받은 정보 : {}",userDto);
+        return ResponseEntity.ok(service.findByName(userDto.getName()));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Messenger> login(@RequestBody UserDto param){
+        log.info("입력받은 정보 : {}",param);
+        return ResponseEntity.ok(service.login(param));
+    }
+
+
 
 
 }

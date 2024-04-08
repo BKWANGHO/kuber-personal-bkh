@@ -24,8 +24,8 @@ public class User extends BaseEntity {
     private String password;
     private String name;
     private String phone;
-    private Long addressId;
     private String job;
+//    private Long addressId;
 
     @OneToMany(mappedBy = "writer",fetch = FetchType.LAZY)
     private List<Article> articles;
@@ -37,7 +37,7 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", phoneNumber=" + phone +
-                ", address='" + addressId + '\'' +
+//                ", address='" + addressId + '\'' +
                 ", job='" + job + '\'' +
                 '}' + '\n';
     }

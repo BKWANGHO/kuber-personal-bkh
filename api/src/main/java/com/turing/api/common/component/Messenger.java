@@ -9,10 +9,8 @@ import org.springframework.stereotype.Component;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessengerVo {
+public class Messenger {
     private String message;
     private int status;
     private String code;
-
-
 }

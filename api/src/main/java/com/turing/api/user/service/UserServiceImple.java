@@ -1,5 +1,6 @@
 package com.turing.api.user.service;
 
+import com.turing.api.common.component.Messenger;
 import com.turing.api.common.component.PageRequestVo;
 import com.turing.api.user.model.User;
 import com.turing.api.user.model.UserDto;
@@ -20,23 +21,39 @@ public class UserServiceImple implements UserService {
 
     private final UserRepository repository;
 
-    public void dummy() {
 
+    @Override
+    public Messenger save(UserDto userDto) {
+
+     repository.save(dtoToEntity(userDto));
+        return Messenger.builder()
+                .message("회원가입 성공"+userDto.getName())
+                .build();
     }
 
     @Override
-    public UserDto save(UserDto userDto) {
-        return entityToDto(repository.save(dtoToEntity(userDto)));
+    public Messenger deleteById(Long id) {
+
+            repository.deleteById(id);
+
+        return existsById(id) ?
+                Messenger.builder()
+                .message("회원탈퇴 완료")
+                .build() :
+                 Messenger.builder()
+                .message("회원탈퇴 실패")
+                .build();
     }
 
     @Override
-    public void deleteById(Long id) {
-        repository.deleteById(id);
+    public Messenger modify(UserDto userDto) {
+
+        return null;
     }
 
 
     @Override
-    public List<UserDto> findAll(PageRequestVo vo) {
+    public List<UserDto> findAll() {
         return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
@@ -57,22 +74,30 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public String updatePassword(User user) {
+    public List<UserDto> findByName(String name) {
         return null;
     }
 
     @Override
-    public List<?> findUsersByName(String name) {
+    public List<UserDto> findUsersByJob(String job) {
         return null;
     }
 
     @Override
-    public List<?> findUsersByJob(String job) {
+    public List<UserDto> findUsersByName(String name) {
         return null;
     }
 
     @Override
-    public User findUserByName(String username) {
+    public Optional<UserDto> findUserByUsername(String username) {
+        User user = repository.findByUsername(username);
+        return Optional.of(entityToDto(user));
+    }
+
+
+
+    @Override
+    public Messenger login(UserDto param) {
         return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.turing.api.user.service;
 
+import com.turing.api.common.component.Messenger;
 import com.turing.api.common.service.CommandService;
 import com.turing.api.common.service.QueryService;
 import com.turing.api.user.model.User;
@@ -11,14 +12,12 @@ import java.util.Optional;
 
 public interface UserService extends CommandService<UserDto>, QueryService<UserDto> {
     //command
-    String updatePassword(User user);
 
     //query
-    List<?> findUsersByName(String name);
-    List<?> findUsersByJob(String job);
-
-    User findUserByName(String username);
-
+    List<UserDto> findByName(String name);
+    List<UserDto> findUsersByJob(String job);
+    List<UserDto> findUsersByName(String name);
+    Optional<UserDto> findUserByUsername(String username);
 
 
     default User dtoToEntity(UserDto userDto){
@@ -33,6 +32,7 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
 
     default UserDto entityToDto(User user){
         return UserDto.builder()
+                .id(user.getId())
                 .username(user.getUsername())
                 .password(user.getPassword())
                 .name(user.getName())
@@ -41,4 +41,5 @@ public interface UserService extends CommandService<UserDto>, QueryService<UserD
                 .build();
     }
 
+    Messenger login(UserDto param);
 }

@@ -1,11 +1,13 @@
 package com.turing.api.common.service;
 
+import com.turing.api.common.component.Messenger;
+
 import java.util.Map;
 
 public interface CommandService<T> {
-    void dummy();
-    T save (T t) ;
-    void deleteById (Long id);
 
+    Messenger save (T t) ;
+    Messenger deleteById (Long id);
+    Messenger modify (T t);
 
 }

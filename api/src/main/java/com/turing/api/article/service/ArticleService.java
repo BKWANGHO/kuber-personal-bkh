@@ -6,28 +6,31 @@ import com.turing.api.common.service.CommandService;
 import com.turing.api.common.service.QueryService;
 import com.turing.api.user.model.User;
 import com.turing.api.user.model.UserDto;
+import com.turing.api.user.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
+
 public interface ArticleService extends CommandService<ArticleDto>, QueryService<ArticleDto> {
 
-
-    default Article dtoToEntity(ArticleDto articleDto){
-//    default Article dtoToEntity(ArticleDto articleDto, Long userid){
-
+//    default Article dtoToEntity(ArticleDto articleDto){
+    default Article dtoToEntity(ArticleDto articleDto, Long userid){
+        UserRepository repo;
         return Article.builder()
 //                .title(articleDto.getTitle())
 //                .content(articleDto.getContent())
-//                .writer(User.builder().id(userid).build())
+//                .writer(articleDto.getWriter())
+//                .writer(userrepo.findById(articleDto.getWriter()))
                 .build();
     }
 
 //    default ArticleDto entityToDto(Optional<Article> article, Long userid){
-    default ArticleDto entityToDto(Optional<Article> article){
+    default ArticleDto entityToDto(Article article){
         return ArticleDto.builder()
-//                .title(article.get().getTitle())
-//                .content(article.get().getContent())
-//                .writerId(userid)
+                .title(article.getTitle())
+                .content(article.getContent())
+                .writer(article.getWriter().getUsername())
                 .build();
     }
 

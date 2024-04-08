@@ -4,6 +4,7 @@ import com.turing.api.board.model.BoardDto;
 import com.turing.api.board.model.BoardDto;
 import com.turing.api.board.repository.BoardRepository;
 import com.turing.api.board.model.Board;
+import com.turing.api.common.component.Messenger;
 import com.turing.api.common.component.PageRequestVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,23 +19,28 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository repository;
+
+
     @Override
-    public void dummy() {
+    public Messenger save(BoardDto boardDto) {
+        entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))));
+        return null;
 
     }
 
     @Override
-    public BoardDto save(BoardDto boardDto) {
-        return entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))));
-    }
-
-    @Override
-    public void deleteById(Long id) {
+    public Messenger deleteById(Long id) {
         repository.deleteById(id);
+        return  null;
     }
 
     @Override
-    public List<BoardDto> findAll(PageRequestVo vo) {
+    public Messenger modify(BoardDto boardDto) {
+        return null;
+    }
+
+    @Override
+    public List<BoardDto> findAll() {
 //        return repository.findAll(vo);
         return null;
     }

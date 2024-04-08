@@ -19,7 +19,7 @@ public class ArticleDto {
     private Long id;
     private String title;
     private String content;
-    private Long writerId;
-    private Long boardId;
+    private String writer;
+    private String board;
 
 }

@@ -4,7 +4,10 @@ import com.turing.api.article.model.Article;
 import com.turing.api.article.model.ArticleDto;
 import com.turing.api.article.repository.ArticleRepository;
 import com.turing.api.board.model.Board;
+import com.turing.api.board.repository.BoardRepository;
+import com.turing.api.common.component.Messenger;
 import com.turing.api.common.component.PageRequestVo;
+import com.turing.api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,32 +20,36 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
-
     @Override
-    public void dummy() {    }
+    public Messenger save(ArticleDto articleDto) {
 
-    @Override
-    public ArticleDto save(ArticleDto articleDto) {
-        Long id = articleDto.getWriterId();
+//     repository.save(dtoToEntity(articleDto));
 
-        return entityToDto(Optional.of(
-                repository.save(dtoToEntity(articleDto))));
+        return null;
+
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Messenger deleteById(Long id) {
     repository.deleteById(id);
+    return null;
     }
 
     @Override
-    public List<ArticleDto> findAll(PageRequestVo vo) {
-//        return repository.findAll(vo);
+    public Messenger modify(ArticleDto articleDto) {
+        return null;
+    }
+
+    @Override
+    public List<ArticleDto> findAll() {
+//        return repository.findAll().stream().map(i->entityToDto(i)).toList();
         return null;
     }
 
     @Override
     public Optional<ArticleDto> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+//        return Optional.of(entityToDto(repository.findById(id)));
+        return null;
     }
 
     @Override
