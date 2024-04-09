@@ -27,5 +27,7 @@ public class UserDto {
     private String phone;
     private Long addressId;
     private String job;
+    private String regDate;
+    private String modDate;
     private List<Article> articles = new ArrayList<>();
 }

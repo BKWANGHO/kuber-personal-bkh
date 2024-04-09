@@ -23,9 +23,10 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Messenger save(BoardDto boardDto) {
-        entityToDto(Optional.of(repository.save(dtoToEntity(boardDto))));
-        return null;
-
+        repository.save(dtoToEntity(boardDto));
+        return Messenger.builder()
+                .message("회원가입 성공")
+                .build();
     }
 
     @Override
@@ -41,13 +42,12 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public List<BoardDto> findAll() {
-//        return repository.findAll(vo);
-        return null;
+        return repository.findAll().stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
     public Optional<BoardDto> findById(Long id) {
-        return Optional.of(entityToDto(repository.findById(id)));
+        return null;
     }
 
     @Override

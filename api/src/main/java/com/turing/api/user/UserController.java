@@ -39,10 +39,10 @@ public class UserController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/detail")
-    public ResponseEntity<Optional<UserDto>> findById(@RequestParam long id) {
+    @GetMapping(path="/detail")
+    public ResponseEntity<Optional<UserDto>> findById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}",id);
-        return ResponseEntity.ok(service.findById(null));
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @PutMapping( "/modify")
@@ -52,7 +52,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> deleteById(@RequestParam long id) {
+    public ResponseEntity<Messenger> deleteById(@RequestParam Long id) {
         log.info("입력받은 정보 : {}",id);
         return ResponseEntity.ok(service.deleteById(id));
     }
@@ -63,9 +63,12 @@ public class UserController {
     }
 
     @GetMapping("/exist")
-    public ResponseEntity<Boolean> existsById(@RequestParam long id) {
+    public ResponseEntity<Boolean> existsById(@RequestParam Long id) {
         return ResponseEntity.ok(service.existsById(id));
     }
+
+//    ==============================================================
+
 
     @PostMapping("/search")
     public ResponseEntity<List<UserDto>> findByName(@RequestBody UserDto userDto) {

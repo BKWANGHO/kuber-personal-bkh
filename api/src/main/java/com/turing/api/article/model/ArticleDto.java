@@ -21,5 +21,7 @@ public class ArticleDto {
     private String content;
     private String writer;
     private String board;
+    private String regDate;
+    private String modDate;
 
 }

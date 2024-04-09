@@ -24,9 +24,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Messenger save(ArticleDto articleDto) {
 
 //     repository.save(dtoToEntity(articleDto));
-
         return null;
-
     }
 
     @Override
@@ -42,8 +40,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll() {
-//        return repository.findAll().stream().map(i->entityToDto(i)).toList();
-        return null;
+        return repository.findAll()
+                .stream().map(i->entityToDto(i)).toList();
+
     }
 
     @Override

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,7 +26,8 @@ public class UserServiceImple implements UserService {
     @Override
     public Messenger save(UserDto userDto) {
 
-     repository.save(dtoToEntity(userDto));
+        repository.save(dtoToEntity(userDto));
+
         return Messenger.builder()
                 .message("회원가입 성공"+userDto.getName())
                 .build();
@@ -33,9 +35,7 @@ public class UserServiceImple implements UserService {
 
     @Override
     public Messenger deleteById(Long id) {
-
             repository.deleteById(id);
-
         return existsById(id) ?
                 Messenger.builder()
                 .message("회원탈퇴 완료")
@@ -47,8 +47,10 @@ public class UserServiceImple implements UserService {
 
     @Override
     public Messenger modify(UserDto userDto) {
-
-        return null;
+        repository.save(dtoToEntity(userDto));
+        return Messenger.builder()
+                .message("수정 성공"+userDto.getName())
+                .build();
     }
 
 
@@ -59,8 +61,8 @@ public class UserServiceImple implements UserService {
 
     @Override
     public Optional<UserDto> findById(Long id) {
-        return null;
-//        return Optional.of(entityToDto(repository.findById(id)));
+        return Optional.ofNullable(
+                entityToDto(Objects.requireNonNull(repository.findById(id).orElse(null))));
     }
 
     @Override
@@ -75,12 +77,12 @@ public class UserServiceImple implements UserService {
 
     @Override
     public List<UserDto> findByName(String name) {
-        return null;
+        return repository.findByName(name);
     }
 
     @Override
     public List<UserDto> findUsersByJob(String job) {
-        return null;
+        return repository.findUsersByJob(job);
     }
 
     @Override
