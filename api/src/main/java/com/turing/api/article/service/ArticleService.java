@@ -28,9 +28,12 @@ public interface ArticleService extends CommandService<ArticleDto>, QueryService
 //    default ArticleDto entityToDto(Optional<Article> article, Long userid){
     default ArticleDto entityToDto(Article article){
         return ArticleDto.builder()
+                .id(article.getId())
                 .title(article.getTitle())
                 .content(article.getContent())
                 .writer(article.getWriter().getUsername())
+                .regDate(String.valueOf(article.getRegDate()))
+                .modDate(String.valueOf(article.getRegDate()))
                 .build();
     }
 

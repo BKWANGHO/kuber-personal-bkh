@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -47,8 +48,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<ArticleDto> findById(Long id) {
-//        return Optional.of(entityToDto(repository.findById(id)));
-        return null;
+        return Optional.ofNullable(entityToDto(
+                Objects.requireNonNull(repository.findById(id).orElse(null))));
     }
 
     @Override
