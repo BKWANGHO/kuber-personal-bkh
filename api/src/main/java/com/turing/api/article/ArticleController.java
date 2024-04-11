@@ -43,7 +43,7 @@ public class ArticleController {
     }
 
     @PutMapping( "/modify")
-    public ResponseEntity<Messenger> modify(@RequestBody ArticleDto articleDto){
+    public ResponseEntity<Optional<ArticleDto>> modify(@RequestBody ArticleDto articleDto){
         log.info("입력받은 정보 : {}",articleDto);
         return ResponseEntity.ok(service.modify(articleDto) );
     }

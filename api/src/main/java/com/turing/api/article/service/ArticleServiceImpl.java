@@ -35,7 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Messenger modify(ArticleDto articleDto) {
+    public Optional<ArticleDto> modify(ArticleDto articleDto) {
         return null;
     }
 

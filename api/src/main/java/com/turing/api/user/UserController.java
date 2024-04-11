@@ -46,9 +46,9 @@ public class UserController {
     }
 
     @PutMapping( "/modify")
-    public ResponseEntity<Messenger> modify(@RequestBody UserDto userDto){
+    public ResponseEntity<Optional<UserDto>> modify(@RequestBody UserDto userDto){
         log.info("입력받은 정보 : {}",userDto);
-        return ResponseEntity.ok(service.modify(userDto) );
+        return ResponseEntity.ok(service.modify(userDto));
     }
 
     @DeleteMapping("/delete")

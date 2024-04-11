@@ -46,11 +46,13 @@ public class UserServiceImple implements UserService {
     }
 
     @Override
-    public Messenger modify(UserDto userDto) {
-        repository.save(dtoToEntity(userDto));
-        return Messenger.builder()
-                .message("수정 성공"+userDto.getName())
-                .build();
+    public Optional<UserDto> modify(UserDto userDto) {
+        Optional<User> user = repository.findById(userDto.getId());
+        user.get().setName(userDto.getName());
+        user.get().setPhone(userDto.getPhone());
+        user.get().setJob(userDto.getJob());
+        user.get().setUsername(userDto.getUsername());
+        return Optional.of(repository.save(user.get())).map(i -> entityToDto(i));
     }
 
 

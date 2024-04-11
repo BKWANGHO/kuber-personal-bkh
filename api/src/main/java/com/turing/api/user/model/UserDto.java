@@ -26,7 +26,6 @@ public class UserDto {
     private String password;
     private String name;
     private String phone;
-    private Long addressId;
     private String job;
     private String regDate;
     private String modDate;

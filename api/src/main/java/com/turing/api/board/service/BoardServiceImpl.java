@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -36,7 +37,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Messenger modify(BoardDto boardDto) {
+    public Optional<BoardDto> modify(BoardDto boardDto) {
         return null;
     }
 
@@ -47,7 +48,8 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public Optional<BoardDto> findById(Long id) {
-        return null;
+        return Optional.ofNullable(entityToDto(
+                Objects.requireNonNull(repository.findById(id).orElse(null))));
     }
 
     @Override
