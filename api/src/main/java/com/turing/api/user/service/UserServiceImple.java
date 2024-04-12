@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -26,22 +27,34 @@ public class UserServiceImple implements UserService {
     @Override
     public Messenger save(UserDto userDto) {
 
-        repository.save(dtoToEntity(userDto));
+        User user = repository.save(dtoToEntity(userDto));
 
         return Messenger.builder()
-                .message("회원가입 성공"+userDto.getName())
+                .message(user instanceof User ? "SUCCESS":"FAIURE")
                 .build();
     }
 
     @Override
     public Messenger deleteById(Long id) {
-            repository.deleteById(id);
-        return existsById(id) ?
-                Messenger.builder()
-                .message("회원탈퇴 완료")
-                .build() :
-                 Messenger.builder()
-                .message("회원탈퇴 실패")
+        repository.deleteById(id);
+
+//        return Messenger.builder()
+//                .message(repository.findById(id).isPresent() ? "SUCCESS" :"FAILURE")
+//                .build();
+
+//        return Messenger.builder()
+//                .message(repository.existsById(id) ? "SUCCESS" :"FAILURE")
+//                .build();
+
+        return Messenger.builder()
+                .message(
+                        Stream.of(id)
+                                .filter(i->existsById(i))
+                                .peek(i->repository.deleteById(i))
+                                .map(i->"SUCCESS")
+                                .findAny()
+                                .orElseGet(()->"FAILURE")
+                )
                 .build();
     }
 

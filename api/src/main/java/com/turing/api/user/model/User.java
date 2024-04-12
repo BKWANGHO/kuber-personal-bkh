@@ -17,7 +17,7 @@ import java.util.List;
 public class User extends BaseEntity {
     @Id
     @Column(name = "user_id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -25,9 +25,8 @@ public class User extends BaseEntity {
     private String name;
     private String phone;
     private String job;
-//    private Long addressId;
 
-    @OneToMany(mappedBy = "writer",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "writer",cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Article> articles;
 
     @Override
@@ -37,7 +36,6 @@ public class User extends BaseEntity {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", phoneNumber=" + phone +
-//                ", address='" + addressId + '\'' +
                 ", job='" + job + '\'' +
                 '}' + '\n';
     }
