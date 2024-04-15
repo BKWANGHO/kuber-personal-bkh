@@ -1,20 +1,15 @@
 package com.turing.api.article.service;
 
-import com.turing.api.article.model.Article;
 import com.turing.api.article.model.ArticleDto;
 import com.turing.api.article.repository.ArticleRepository;
-import com.turing.api.board.model.Board;
-import com.turing.api.board.repository.BoardRepository;
 import com.turing.api.common.component.Messenger;
-import com.turing.api.common.component.PageRequestVo;
-import com.turing.api.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor

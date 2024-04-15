@@ -22,11 +22,18 @@ public class Article extends BaseEntity {
 
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User writer;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;
+
+    public static Article of (String title, String content){
+        Article article = new Article();
+        article.title=title;
+        article.content=content;
+        return article;
+    }
 }

@@ -35,7 +35,6 @@ public class UserController {
     @GetMapping( "/list")
     public ResponseEntity<List<UserDto>> findAll() {
         log.info("입력받은 정보 : {}");
-        System.out.println(service.findAll());
         return ResponseEntity.ok(service.findAll());
     }
 

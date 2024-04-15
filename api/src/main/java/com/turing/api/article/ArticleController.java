@@ -1,11 +1,8 @@
 package com.turing.api.article;
 
-import com.turing.api.article.model.Article;
 import com.turing.api.article.model.ArticleDto;
 import com.turing.api.article.service.ArticleService;
 import com.turing.api.common.component.Messenger;
-import com.turing.api.common.component.PageRequestVo;
-import com.turing.api.user.model.UserDto;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +14,11 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@ApiResponses(value = {
-        @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-        @ApiResponse(responseCode = "404", description = "Customer not found")})
+@ApiResponses({
+        @ApiResponse(responseCode = "400", description = "BAD REQUEST"),
+        @ApiResponse(responseCode = "404", description = "NOT FOUND"),
+        @ApiResponse(responseCode = "200", description = "SUCCESS"),
+})
 @RequiredArgsConstructor
 @RequestMapping("/api/articles")
 @CrossOrigin(origins = "*",allowedHeaders = "*")

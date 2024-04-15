@@ -1,17 +1,12 @@
 package com.turing.api.user.service;
 
 import com.turing.api.common.component.Messenger;
-import com.turing.api.common.component.PageRequestVo;
 import com.turing.api.user.model.User;
-import com.turing.api.user.model.UserDto;
 import com.turing.api.user.model.UserDto;
 import com.turing.api.user.repository.UserRepository;
-import com.turing.api.user.model.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,7 +17,6 @@ import java.util.stream.Stream;
 public class UserServiceImple implements UserService {
 
     private final UserRepository repository;
-
 
     @Override
     public Messenger save(UserDto userDto) {
@@ -71,7 +65,8 @@ public class UserServiceImple implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        return repository.findAll().stream().map(i->entityToDto(i)).toList();
+        return repository.findAll()
+                .stream().map(i->entityToDto(i)).toList();
     }
 
     @Override
@@ -107,14 +102,18 @@ public class UserServiceImple implements UserService {
 
     @Override
     public Optional<UserDto> findUserByUsername(String username) {
-        User user = repository.findByUsername(username);
-        return Optional.of(entityToDto(user));
+        Optional<User> user = repository.findByUsername(username);
+        return Optional.of(entityToDto(user.get()));
     }
 
 
-
+//  Srp 에 따라 아이디 존재여부를 프론트에서 먼저 판단하고 넘어옴 (시큐리티)
     @Override
     public Messenger login(UserDto param) {
-        return null;
+        return Messenger.builder()
+                .message(repository.findByUsername(param.getUsername()).get()
+                        .getPassword().equals(param.getPassword()) ?
+                        "SUCCESS" : "FAILURE")
+                .build();
     }
 }
