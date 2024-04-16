@@ -1,5 +1,6 @@
 package com.turing.api.user.service;
 
+import com.turing.api.common.component.JwtProvider;
 import com.turing.api.common.component.Messenger;
 import com.turing.api.user.model.User;
 import com.turing.api.user.model.UserDto;
@@ -17,6 +18,8 @@ import java.util.stream.Stream;
 public class UserServiceImple implements UserService {
 
     private final UserRepository repository;
+
+    private final JwtProvider jwtProvider;
 
     @Override
     public Messenger save(UserDto userDto) {
@@ -110,10 +113,12 @@ public class UserServiceImple implements UserService {
 //  Srp 에 따라 아이디 존재여부를 프론트에서 먼저 판단하고 넘어옴 (시큐리티)
     @Override
     public Messenger login(UserDto param) {
+        boolean flag = repository.findByUsername(param.getUsername()).get()
+                .getPassword().equals(param.getPassword());
+
         return Messenger.builder()
-                .message(repository.findByUsername(param.getUsername()).get()
-                        .getPassword().equals(param.getPassword()) ?
-                        "SUCCESS" : "FAILURE")
+                .message(flag ? "SUCCESS" : "FAILURE")
+                .token(flag ? jwtProvider.createToken(param) : "None")
                 .build();
     }
 }

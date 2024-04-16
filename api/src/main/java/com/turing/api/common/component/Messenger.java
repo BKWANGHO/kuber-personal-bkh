@@ -12,5 +12,5 @@ import org.springframework.stereotype.Component;
 public class Messenger {
     private String message;
     private int status;
-    private String code;
+    private String token;
 }
