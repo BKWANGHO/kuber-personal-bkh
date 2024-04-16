@@ -33,11 +33,6 @@ public class JwtProvider {
     }
 
     public String createToken(UserDto userDto) {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime tokenValidTime = now.plusSeconds(24 * 60 * 60 * 1000);
-
-
-
         String toke = Jwts.builder()
                 .issuer(issuer)
                 .signWith(secretkey)
